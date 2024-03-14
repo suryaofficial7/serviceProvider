@@ -41,7 +41,7 @@ userData && (
       </label>
       <label class="logo">DesignX</label>
       <ul>
-        <li><Link to="/service-provider"  >Home</Link></li>
+        <li><Link to="/dashboard"  >Dashboard</Link></li>
         <li><Link to="/profile" >Profile</Link></li>
         <li><Link to="/aboutus" class="active">About</Link></li>
         <li><Link to="/logout">Logout</Link></li>

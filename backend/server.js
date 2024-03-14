@@ -38,7 +38,7 @@ app.post('/signup', (req, res) => {
             }
         });
     } else {
-        const sql = 'INSERT INTO consumers (first_name, email, password, role, needs_service) VALUES (?, ?, ?, ?, ?)';
+        const sql = 'INSERT INTO consumers (first_name, useremail, password, role, needs_service) VALUES (?, ?, ?, ?, ?)';
         db.query(sql, [firstName, email, password, role, needsService], (err, result) => {
             if (err) {
                 console.error('Error inserting data into consumers:', err);
@@ -56,19 +56,22 @@ app.post('/login', (req, res) => {
     const { email, password, userType } = req.body;
 
     let tableName = '';
-
+let mail = '';
     // Determine the table name based on the user type
     if (userType === 'consumer') {
         tableName = 'consumers'; // Table for consumers
+        mail= 'useremail'
     } else if (userType === 'serviceProvider') {
         tableName = 'users'; // Table for service providers
+        mail= 'email'
+
     } else {
         // Invalid user type
         return res.status(400).json({ error: 'Invalid user type' });
     }
 
     // Check if the user exists in the appropriate table based on the user type
-    const sql = `SELECT * FROM ${tableName} WHERE email = ? AND password = ?`;
+    const sql = `SELECT * FROM ${tableName} WHERE ${mail} = ? AND password = ?`;
     console.log(`${sql}`);
     db.query(sql, [email, password], (err, result) => {
         if (err) {
@@ -209,6 +212,31 @@ app.post('/getAllAppoints',(req,res)=>{
 })
 
 
+
+
+app.post('/viewAppoints',(req,res)=>{
+
+    const userID = req.body['userID'];
+    
+    const sql = `select * FROM appointments INNER JOIN users on users.id=appointments.userID INNER JOIN consumers on consumers.id=appointments.customerID where users.id ='${userID}';`;
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.error('Error querying user:', err);
+            return res.status(500).json({ error: 'An error occurred while fetching user details' });
+        }
+
+        if (result.length === 0) {
+            console.log('NO result');
+            return res.status(404).json({ error: 'NO AppointMent Till Now' });
+        }
+
+        // User found, return user details
+        console.log('User details fetched successfully');
+        res.status(200).json(result);
+        // res.send(req.body);
+    });
+
+})
 
 // Home endpoint
 app.get('/home', (req, res) => {

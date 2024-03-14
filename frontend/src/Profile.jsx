@@ -61,7 +61,7 @@ const Profile = () => {
                     <p className='fs-6'><span className='fw-bold'>Name: </span>{user.first_name}</p>
                     <p className='fs-6'><span className='fw-bold'>Email: </span>{user.email}</p>
                     <p className='fs-6'><span className='fw-bold'>User Type: </span>{user.role}</p> 
-                    <p className='fs-6'><span className='fw-bold'>Account Created on : </span>{Date(user.created_at)}</p> 
+                    <p className='fs-6'><span className='fw-bold'>Account Created on : </span>{user.created_at}</p> 
 
                     {/* Add other user details as needed */}
                 </div>
@@ -75,7 +75,7 @@ const Profile = () => {
         </center>
 
 <div className="p-1 w-100 m-auto">
-<table className="table w-50 m-auto text-center">
+<table className="table  m-auto text-center" style={{overflow:"scroll",width:"70%"}}>
 <thead>
 <tr>
 <th scope="col">Provider Name</th>
@@ -104,7 +104,7 @@ getServices.map(item =>(
     <td>{`₹`+item.price}</td>
 
 
-    <td>{item.dates}</td>
+    <td style={{width:'100px'}}>{item.dates}</td>
 
     <td><Link to={`/delete/${item.AppointmentID}`} className='btn btn-danger'>Delete</Link></td>
 

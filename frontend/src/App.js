@@ -11,6 +11,7 @@ import Apply from './Apply'
 import Delete from './Delete'
 import Dashboard from './Dashboard'
 import UserProfile from './UserProfile'
+import Deleteappoints from './Deleteappoints'
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
       <Route path='/logout' element={<Logout/>}></Route>
       <Route path='/apply/:id' element={<Apply/>}></Route>
       <Route path='/delete/:id' element={<Delete/>}></Route>
+      <Route path='/deleteAppoint/:id' element={<Deleteappoints/>}></Route>
+
       <Route path='/dashboard' element={<Dashboard/>}></Route>
       <Route path='/userprofile' element={<UserProfile/>}></Route>
 
